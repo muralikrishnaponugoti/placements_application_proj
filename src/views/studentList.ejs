@@ -1,0 +1,18 @@
+<% if(!locals.students) {%>
+    <h1 class="empty-employes" style="text-align: center;width:60%; margin:auto;">as of now no student is registered in the placement cell</h1>
+<% } else{%>
+    <div id="allEmployes" style="display: flex;justify-content: space-around; flex-wrap: wrap; margin-top: 2em;">
+        <% students.forEach((student)=>{ %>
+            <div class="card">
+                <h2 class="card-header"><%= student.name%></h2>
+                <div class="card-body">
+                <h3 class="card-title"><%= student.email %></h3>
+                <h4 class="card-text"> DSA Score: <%= student.dsaScore %></h4>
+                <h4 class="card-text"> webD Score: <%= student.webDScore %></h4>
+                <h4 class="card-text"> React Score: <%= student.reactScore %></h4>
+                <a href="/admin/studentDetails/<%=student._id%>" class="btn btn-primary" style="margin-left:30%;">view full details</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } %>

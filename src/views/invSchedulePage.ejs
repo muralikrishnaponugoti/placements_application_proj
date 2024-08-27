@@ -1,0 +1,57 @@
+<h1 class="mt-5 mb-4 content-title">Schedule Interview</h1>
+<% if(locals.errorMessage){ %>
+    <div class="alert alert-danger" role="alert">
+        <%=errorMessage %>
+    </div>
+    <% } %>
+        <form action="/admin/scheduleIntrv" method="post">
+            <div class="mb-3">
+                <label for="student" class="form-label">Select Student</label>
+                <select class="form-select" id="name" name="student" aria-label="Default select example" required>
+                    <% if(locals.students && students.length>0) { %>
+                        <option selected value="select student">select the student</option>
+                        <% students.forEach((student)=>{ %>
+                            <option value="<%=student._id %>"> <%=student.name %>(<%=student.email %>)</option>
+                        <% }) %>
+                    <%} else { %>
+                        <option selected value="no students"> no student is registered</option>
+                    <% }     %>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="company" class="form-label">Select Company</label>
+                <select class="form-select" id="companyName" name="company" aria-label="Default select example" required>
+                    <% if(locals.specific){ %>
+                        <option selected value="<%=specific.compId%>"><%=specific.compName%></option>
+                    
+                    <%} else{%>
+                        <% if(locals.companies && companies.length>0) { %>
+                            <option selected value="select company">select the Company</option>
+                            <% companies.forEach((companie)=>{ %>
+                                <option value="<%=companie._id %>"><%=companie.name %></option>
+                            <% }) %>
+                        <%} else{ %>
+                            <option selected value="no companies"> no company is registered</option>
+                        <% } %>
+                    <% } %>
+
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Select Status</label>
+                <select class="form-select" id="status" name="status" aria-label="Default select example" required>
+                    <option value="select status">select sudent status</option>
+                    <option value="pass">Pass</option>
+                    <option value="fail">Fail</option>
+                    <option value="registerd">registerd</option>
+                    <option value="on hold">On Hold</option>
+                    <option value="didn't attempt">didn't Attempt</option>
+                </select>
+            </div>
+            <div class="mb-3" style="width:fit-content;">
+                <label for="interviewDate" class="form-label">Schedule Date</label>
+                <input type="date" class="form-control" id="password" name="interviewDate" value="" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Schedule</button>
+            <hr>
+        </form>

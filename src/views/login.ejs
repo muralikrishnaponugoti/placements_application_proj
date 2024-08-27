@@ -1,0 +1,22 @@
+<h1 class="mt-5 mb-4 content-title">Login</h1>
+<%if(locals.errorMessage){ %>
+    <div class="alert alert-danger" role="alert">
+        <%= errorMessage %>
+    </div>
+<% } %>
+<form action="/login" method="post" class="form-width">
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="enter email"  value="" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="enter password at least 6"  value="" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <hr>
+    <div> 
+        <sapn>Not Rigsted</sapn>
+        <a href="/register">Register</a>
+    </div>
+</form>

@@ -1,0 +1,37 @@
+<h1 class="mt-5 mb-4 content-title">Add Student</h1>
+<%if(locals.errorMessage){ %>
+    <div class="alert alert-danger" role="alert">
+        <%= errorMessage %>
+    </div>
+<% } %>
+<form action="/admin/addStudent" method="post" class="form-width">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="enter name" value="" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="enter email"  value="" required>
+    </div>
+    <div class="mb-3">
+        <label for="college" class="form-label">college</label>
+        <input type="text" class="form-control" id="college" name="college" placeholder="enter college name"  value="" required>
+    </div>
+    <div class="col-md-4" style="display: inline-block;">
+        <label for="batch" class="form-label">batch</label>
+        <input type="text" class="form-control" id="batch" name="batch" placeholder="enter batch"  value="" required>
+    </div>
+    <div class="col-md-4" style="display: inline-block;margin:2%;">
+        <label for="dsaScore" class="form-label">DSA Final Score</label>
+        <input type="number" class="form-control" id="dsaScore" name="dsaScore" placeholder="enter dsa final score"  value="" required>
+    </div>
+    <div class="col-md-4" style="display: inline-block;">
+        <label for="webDScore" class="form-label">WebD Final Score</label>
+        <input type="number" class="form-control" id="wevDScore" name="webDScore" placeholder="enter webd final score"  value="" required>
+    </div>
+    <div class="col-md-4" style="display: inline-block; margin:2%;">
+        <label for="reactScore" class="form-label">React Final Score</label>
+        <input type="number" class="form-control" id="reactScore" name="reactScore" placeholder="enter react final score"  value="" required>
+    </div>
+    <button type="submit" class="btn btn-primary" style="display:block; margin:auto; width:20%; margin-top: 2%;">add</button>
+</form>

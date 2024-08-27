@@ -1,0 +1,17 @@
+<% if(!locals.companies){ %>
+    <h1 class="empty-employes" style="text-align: center;width:60%; margin:auto;">as of now no companies is registered in the placement cell</h1>
+<% } else { %>
+    <div id="allEmployes" style="display: flex;justify-content: space-around; flex-wrap: wrap; margin-top: 2em;">
+        <% companies.forEach((company)=>{ %>
+            <div class="card">
+                <h2 class="card-header"><%= company.name%></h2>
+                <div class="card-body">
+                    <h4 class="card-text">Deadline: <%= new Date(company.aplDeadLine).toLocaleDateString() %></h4>
+                    <h4 class="card-text"> 'No' of Students Reg: <%= company.registerations.length %></h4>
+                    <a href="/admin/companies/<%=company._id%>/details" class="btn btn-primary" style="margin-left:26%;">view full details</a>
+                    <a href="/admin/scheduleIntrv?compId=<%= company._id%>&compName=<%=company.name%>" class="btn btn-primary" style="margin-left:30%; margin-top: 2%;">Reg Student</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } %>

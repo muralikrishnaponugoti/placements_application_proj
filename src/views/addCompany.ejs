@@ -1,0 +1,22 @@
+<h1 class="mt-5 mb-4 content-title">Register</h1>
+<%if(locals.errorMessage){ %>
+    <div class="alert alert-danger" role="alert">
+        <%= errorMessage %>
+    </div>
+<% } %>
+<form action="/admin/addCompany" method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Company Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="enter name" value="" required>
+    </div>
+    <div class="mb-3">
+        <label for="jd" class="form-label">Job Description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="jd" required></textarea>
+    </div>
+    <div class="mb-3" style="width:fit-content;">
+        <label for="aplDeadLine" class="form-label">Application Last Date</label>
+        <input type="date" class="form-control" id="password" name="aplDeadLine"  value="" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+    <hr>
+</form>
