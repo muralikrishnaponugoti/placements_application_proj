@@ -1,7 +1,9 @@
-<header>
-    <h1 style="width:60%;">student details</h1>
-    <a href="/admin/companyDetails/download/<%=locals.compDetails?compDetails._id:''%>" target="blank"><button type="button" class="btn btn-success">Download</button></a>
-</header>
+<% if (!locals.download) { %>
+    <header>
+        <h1 style="width:60%;">Company details</h1>
+        <a href="/admin/companyDetails/download/<%=locals.compDetails?compDetails._id:''%>" target="blank"><button type="button" class="btn btn-success">Download</button></a>
+    </header>
+<% } %>
 <% if(locals.compDetails){%>
     <div id="compDetails" style="display: flex; flex-direction: column; align-items: center; gap:3%;">
         <h2 style="margin-bottom:1%; margin-top: 2%;"><u>fundamental Details</u></h2>
@@ -10,6 +12,12 @@
                 <th>Name</th>
                 <td>
                     <%= compDetails.name %>
+                </td>
+            </tr>
+            <tr>
+                <th>Mail Id</th>
+                <td>
+                    <%= compDetails.cmpnymail %>
                 </td>
             </tr>
             <tr>
@@ -47,19 +55,23 @@
                         <td>
                             <%=student.status %>
                         </td>
-                        <Td><div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                <option value="<%= student.status %>" selected>
-                                    <%= student.status %>
-                                </option>
-                                <option value="pass-<%= student._id%>">Pass</option>
-                                <option value="fail-<%= student._id%>">Fail</option>
-                                <option value="registerd-<%= student._id%>">registerd</option>
-                                <option value="on hold-<%= student._id%>">On Hold</option>
-                                <option value="didn't attempt-<%= student._id%>">didn't Attempt</option>>
-                            </select>
-                            <label for="floatingSelect">update Status</label>
-                        </div></Td>
+                        <% if (!locals.download) { %>
+                            <td>
+                                <div class="form-floating">
+                                    <select class="form-select statusUpdate" id="floatingSelect" aria-label="Floating label select example">
+                                        <option value="<%= student.status %>" selected>
+                                            <%= student.status %>
+                                        </option>
+                                        <option value="pass-<%= student._id %>">Pass</option>
+                                        <option value="fail-<%= student._id %>">Fail</option>
+                                        <option value="registered-<%= student._id %>">Registered</option>
+                                        <option value="on hold-<%= student._id %>">On Hold</option>
+                                        <option value="didn't attempt-<%= student._id %>">Didn't Attempt</option>
+                                    </select>
+                                    <label for="floatingSelect">Update Status</label>
+                                </div>
+                            </td>
+                        <% } %>
                     </tr>
                 <% }) %>
             </table>
@@ -68,6 +80,34 @@
             <% } %>
     </div>
     <% }else{%>
-        <h1 class="detailsNotFound" style="text-align: center;width:60%; margin:auto;">company details are not found
-        </h1>
-        <% } %>
+        <h1 class="detailsNotFound" style="text-align: center;width:60%; margin:auto;">company details are not found</h1>
+    <% } %>
+    <% if (locals.download) { %>
+        <style>
+            /* styles that are specific to the PDF download */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+    
+            th,
+            td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+            }
+    
+            th {
+                background-color: #f2f2f2;
+            }
+    
+            h1,
+            h2 {
+                text-align: center;
+            }
+    
+            .detailsNotFound {
+                color: red;
+            }
+        </style>
+    <% } %>

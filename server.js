@@ -37,7 +37,7 @@ server.get('/admin/addCompany',auth,adminController.getcompanypage);
 server.post('/admin/addcompany',auth,adminController.postAddCompany);
 server.get('/admin/companies',auth,adminController.getAllCompanies);
 server.put('/admin/compnies/updateStatus',auth,adminController.updateStatus);
-// server.get('/admin/companyDetails/download/:compId',auth,)
+server.get('/admin/companyDetails/download/:compId',auth,adminController.downloadcompData)
 server.get('/admin/companies/:compId/details',auth,adminController.getCompDetails);
 server.get('/admin/scheduleIntrv',auth,adminController.getSchedulePage);
 server.post('/admin/scheduleIntrv',auth,adminController.postScheduleIntrv);

@@ -92,7 +92,7 @@ export default class adminController{
     }
 
     static async postAddCompany(req,res,next){
-        const {name,jd,aplDeadLine}=req.body;
+        const {name,jd,aplDeadLine,cmpnymail}=req.body;
         if(new Date(aplDeadLine)< new Date())
             return res.render('addCompany',{userName:req.cookies.adminName,errorMessage:'the expired deadline companies or not accepted'});
         else{
@@ -100,7 +100,7 @@ export default class adminController{
             if(existed)
                 return res.status(409).render('addCompany',{userName:req.cookies.adminName,errorMessage:'a company with this name allready registered'});
             else{
-                const savedCompany=await adminModel.registerCompany({name,jd,aplDeadLine});
+                const savedCompany=await adminModel.registerCompany({name,jd,aplDeadLine,cmpnymail});
                 if(savedCompany)
                     return res.status(200).redirect('/admin/companies');
             }
@@ -208,14 +208,17 @@ export default class adminController{
         }
     }
 
-    static async downloadStudData(req,res,next){
-        const studId=req.params.studId;
-        const studDetails=await adminModel.getStudentDetails(studId);
-        if(studDetails){
-            try {
+    static async downloadData(details,from,res){
+        try {
+                let html;
                 // Render the EJS template to HTML
-                const html = await ejs.renderFile(path.join(path.resolve(),'src','views','studentDetails.ejs'),{studDetails:studDetails,download:true});
+                if(from=="stud")
+                    html = await ejs.renderFile(path.join(path.resolve(),'src','views','studentDetails.ejs'),{studDetails:details,download:true});
+                else{
 
+                    html=await ejs.renderFile(path.join(path.resolve(),'src','views','companyDetails.ejs'),{compDetails:details,download:true});
+                    details.email=details.cmpnymail;
+                }
                 // Launch a headless browser using Puppeteer
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
@@ -235,7 +238,7 @@ export default class adminController{
                 await browser.close();
 
                 // Set the response headers to indicate a file download
-                res.setHeader('Content-Disposition', `attachment; filename=${studDetails.email.split('.')[0]}.pdf`);
+                res.setHeader('Content-Disposition', `attachment; filename=${details.email.split('.')[0]}.pdf`);
                 res.setHeader('Content-Type', 'application/pdf');
 
                 // Send the PDF to the client
@@ -245,6 +248,24 @@ export default class adminController{
                 console.error('Error generating PDF:', err);
                 res.status(500).send('Internal Server Error');
             }
+    }
+
+    static async downloadStudData(req,res,next){
+        const studId=req.params.studId;
+        const studDetails=await adminModel.getStudentDetails(studId);
+        if(studDetails){
+            adminController.downloadData(studDetails,"stud",res);
+        }
+        else{
+            return res.status(500).send('some error occured at server side please try again');
+        }
+    }
+
+    static async downloadcompData(req,res,next){
+        const compId=req.params.compId;
+        const compDetails=await adminModel.getCompDetails(compId);
+        if(compDetails){
+            adminController.downloadData(compDetails,"comp",res);
         }
         else{
             return res.status(500).send('some error occured at server side please try again');

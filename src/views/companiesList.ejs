@@ -6,6 +6,7 @@
             <div class="card">
                 <h2 class="card-header"><%= company.name%></h2>
                 <div class="card-body">
+                    <h4 class="card-text">Mail Id:- <%= company.cmpnymail %></h4>
                     <h4 class="card-text">Deadline: <%= new Date(company.aplDeadLine).toLocaleDateString() %></h4>
                     <h4 class="card-text"> 'No' of Students Reg: <%= company.registerations.length %></h4>
                     <a href="/admin/companies/<%=company._id%>/details" class="btn btn-primary" style="margin-left:26%;">view full details</a>
